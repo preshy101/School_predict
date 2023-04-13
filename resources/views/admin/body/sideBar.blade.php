@@ -159,7 +159,7 @@
                  href="{{route('application')}}"
                  class="menu-link">
                     <i class="menu-icon tf-icons bx bx-money text-white"></i>
-                    <div data-i18n="Boxicons" class="text-white">Application</div>
+                    <div data-i18n="Boxicons" class="text-white">Predict</div>
                 </a>
             </li>
             <li class="menu-item">

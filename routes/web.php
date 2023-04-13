@@ -57,6 +57,7 @@ Route::controller(userController::class)->group(function(){
    Route::get('/view/utme', 'Utme')->name('utme');
    Route::post('/store/olevel', 'AddOlevel')->name('store.olevel');
    Route::post('/store/utme', 'AddUtme')->name('store.utme');
+   Route::get('/predict/{id}', 'Predict')->name('predict');
 //    Route::get('/edit/permission/{id}', 'editHospital')->name('edit.hospital');
 //    Route::post('/update/hospital/{id}', 'updateHospital')->name('update.hospital');
 //    Route::get('/delete/hospital/{id}', 'deleteHospital')->name('delete.hospitals');

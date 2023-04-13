@@ -75,8 +75,6 @@
 
                             </div>
                         </div>
-
-
                                 </div>
 
                                 </div>
@@ -86,11 +84,11 @@
                                     <div class="col-6">
                             <div class="mb-3 row">
                              <div class="col-md-9">
-                                <h4>Subjects</h4>
-                            <input for="html5-text-input" name="sub1" class="col-md-1 form-control"><br>
-                            <input for="html5-text-input" name="sub2"  class="col-md-1 form-control"><br>
-                            <input for="html5-text-input" name="sub3"  class="col-md-1 form-control"><br>
-                            <input for="html5-text-input" name="sub4"  class="col-md-1 form-control"><br>
+                                <h4>Science Subjects Only</h4>
+                            <input for="html5-text-input" name="sub1" value="Mathematics" class="col-md-1 form-control"><br>
+                            <input for="html5-text-input" name="sub2" value="English"  class="col-md-1 form-control"><br>
+                            <input for="html5-text-input" name="sub3" value="Chemistry"  class="col-md-1 form-control"><br>
+                            <input for="html5-text-input" name="sub4" value="Physics"  class="col-md-1 form-control"><br>
                             </div>
                             <div class="col-md-3">
                                 <h4>Scores</h4>

@@ -34,10 +34,16 @@
                     <h5 class="card-header">Applications</h5>
                     <!-- Account -->
                     <div class="card-body">
+                        <div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Predict my Course of Study!</h4>
+  <p>This will be able to predict student course of study in using classification algorithm, also be able to mine knowledge from the students’ academic database</p>
+  <hr>
+  <p class="mb-0">This predict student course of study according to their Post UTME cutoff, thus reduces the rate at which student admission is fortified.</p>
+  <a href="{{route('predict',auth()->user()->id)}}" class="btn btn-primary btn-lg my-3"> Predict</a>
+</div>
 
-
-                        <div class="table-responsive text-nowrap mx-1">
-                  <table id="table" class="m-3 table table-striped">
+                      <div class="table-responsive text-nowrap mx-1">
+          {{--           <table id="table" class="m-3 table table-striped">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -46,43 +52,43 @@
                         <th>Actions</th>
                       </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0">
+                    <tbody class="table-border-bottom-0"> --}}
                         {{-- @if($hospitals)
                         @foreach ($hospitals as $key => $hospital) --}}
-                        <tr>
-                            <td>
+                        {{-- <tr>
+                            <td> --}}
                                 {{-- {{$key+1}} --}}
-                            </td>
+                            {{-- </td>
 
-                            <td>
+                            <td> --}}
                                 {{-- {{$hospital->name}} --}}
-                            </td>
+                            {{-- </td>
 
-                            <td>
+                            <td> --}}
                                 {{-- {{$hospital->lga}} --}}
-                            </td>
+                            {{-- </td>
                             <td>
-                                <a
+                                <a --}}
                                 {{-- href="{{route('view.hospital', $hospital->id)}}" --}}
-                                class="btn btn-info text-white">
+                                {{-- class="btn btn-info text-white">
                                     view
                                 </a>
-                                <a
+                                <a --}}
                                 {{-- href="{{route('edit.hospital', $hospital->id)}}" --}}
-                                 class="btn btn-warning text-white">
+                                 {{-- class="btn btn-warning text-white">
                                     Edit
                                 </a>
-                                <a
+                                <a --}}
                                 {{-- href="{{route('delete.hospitals', $hospital->id)}}" --}}
-                                class="btn btn-danger text-white">
+                                {{-- class="btn btn-danger text-white">
                                     Delete
                                 </a>
                             </td>
-                        </tr>
+                        </tr> --}}
                         {{-- @endforeach
                         @endif --}}
-                    </tbody>
-                  </table>
+                    {{-- </tbody>
+                  </table>--}}
                 </div>
 
 

@@ -17,11 +17,7 @@
                   </p>
                   @endforeach
                   @endif
-                  @if(!empty($message))
-                  <p class="alert alert-success alert-dismissible fade show">
-                    {{$message}}
-                  </p>
-                  @endif
+
                   @if(!empty($error))
                   <p class="alert alert-warning alert-dismissible fade show">
                     {{$error}}
@@ -31,59 +27,61 @@
 
 
                     <div class="card  ">
-                    <h5 class="card-header">Admissions</h5>
+                    <h5 class="card-header">Prediction Result</h5>
                     <!-- Account -->
                     <div class="card-body">
 
 
-                        <div class="table-responsive text-nowrap mx-1">
-                  <table id="table" class="m-3 table table-striped">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        {{-- @if($hospitals)
-                        @foreach ($hospitals as $key => $hospital) --}}
+            @if(!empty($message ) && $status)
+                  <p class="alert alert-success alert-dismissible fade show">
+                    {{$message}}
+                  </p>
+                  <br><br><br>
+                  <table class="table table-striped">
+                    <tbody>
                         <tr>
-                            <td>
-                                {{-- {{$key+1}} --}}
-                            </td>
-
-                            <td>
-                                {{-- {{$hospital->name}} --}}
-                            </td>
-
-                            <td>
-                                {{-- {{$hospital->lga}} --}}
-                            </td>
-                            <td>
-                                <a
-                                {{-- href="{{route('view.hospital', $hospital->id)}}" --}}
-                                class="btn btn-info text-white">
-                                    view
-                                </a>
-                                <a
-                                {{-- href="{{route('edit.hospital', $hospital->id)}}" --}}
-                                 class="btn btn-warning text-white">
-                                    Edit
-                                </a>
-                                <a
-                                {{-- href="{{route('delete.hospitals', $hospital->id)}}" --}}
-                                class="btn btn-danger text-white">
-                                    Delete
-                                </a>
-                            </td>
+                            <td><b>Your O'Level Average:</b> {{$yourOlevel}}</td>
                         </tr>
-                        {{-- @endforeach
-                        @endif --}}
+                        <tr>
+                            <td><b>Department O'Level Average Cutt-Off:</b> {{$olevelAverage->O_level_avg }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Demartment</b> {{$$olevelAverage->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Your Post-UTME Total:</b> {{$yourPostUtme}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Department Cutt-Off:</b> {{$cuttOff}}</td>
+                        </tr>
                     </tbody>
                   </table>
-                </div>
+                  @endif
+            @if(!empty($message ) && $status == false)
+                  <p class="alert alert-danger alert-dismissible fade show">
+                    {{$message}}
+                  </p>
+                  <br><br><br>
+                  <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Your O'Level Average:</b> {{$yourOlevel}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Department O'Level Average Cutt-Off:</b> {{$olevelAverage->O_level_avg }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Demartment</b> {{ $olevelAverage->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Your Post-UTME Total:</b> {{$yourPostUtme}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Department Cutt-Off:</b> {{$cuttOff}}</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                  @endif
 
 
 
