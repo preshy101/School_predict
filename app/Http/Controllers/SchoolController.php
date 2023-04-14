@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\School;
+use App\Models\Application;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
@@ -33,7 +34,7 @@ class SchoolController extends Controller
     }
 
     public function deleteSchool($id){
-        School::findOrFail($id)->delete(); 
+        School::findOrFail($id)->delete();
         return redirect()->route('school');
     }
     public function editSchool($id){
@@ -48,5 +49,9 @@ class SchoolController extends Controller
         $school->save();
         $message = 'school update successfully';
         return redirect()->route('school')->with($message);
+    }
+    public function Application(){
+        $application = Application::all();
+        return view('admin.application.listAdmitted',compact('application'));
     }
 }

@@ -121,7 +121,7 @@
                     </li>
                     <li>
                       <a class="dropdown-item"
-                      {{-- href="{{route('admin.logout')}}" --}}
+                      href="{{route('all.logout')}}"
                       >
                         <i class="bx bx-power-off me-2 text-danger"></i>
                         <span class="align-middle text-danger">Log Out</span>

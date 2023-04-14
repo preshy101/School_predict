@@ -133,6 +133,22 @@
 
               </ul>
             </li>
+            <li class="menu-item">
+                <a
+                 href="{{route('application')}}"
+                class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-wallet text-white"></i>
+                    <div data-i18n="Boxicons" class="text-white">Application</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a
+                href="{{route('user')}}"
+                 class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-wallet text-white"></i>
+                    <div data-i18n="Boxicons" class="text-white">User</div>
+                </a>
+            </li>
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
             <!-- Cards -->
@@ -156,29 +172,12 @@
             </li>
             <li class="menu-item">
                 <a
-                 href="{{route('application')}}"
+                 href="{{route('admitted')}}"
                  class="menu-link">
                     <i class="menu-icon tf-icons bx bx-money text-white"></i>
                     <div data-i18n="Boxicons" class="text-white">Predict</div>
                 </a>
             </li>
-            <li class="menu-item">
-                <a
-                 href="{{route('admitted')}}"
-                class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-wallet text-white"></i>
-                    <div data-i18n="Boxicons" class="text-white">Admitted</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a
-                href="{{route('user')}}"
-                 class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-wallet text-white"></i>
-                    <div data-i18n="Boxicons" class="text-white">User</div>
-                </a>
-            </li>
-
 
 
           </ul>

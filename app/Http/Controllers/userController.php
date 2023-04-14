@@ -15,14 +15,14 @@ class userController extends Controller
 {
       public function allApplication(){
         $applications = Application::all();
-        return view('admin.application.application', compact('applications'));
+        return view('admin.application.listAdmitted', compact('applications'));
     }
     public function allUser(){
         $users = User::all();
         return view('admin.user.user', compact('users'));
     }
     public function alladmitted(){
-        return view('admin.application.admitted');
+        return view('admin.application.application');
     }
     public function Olevel(){
         return view('admin.olevel.olevel');
@@ -50,6 +50,7 @@ class userController extends Controller
                 'othwerScore1' => $request->other1score,
                 'othwerScore2' => $request->other2score,
                 'othwerScore3' => $request->other3score,
+                'image' => $filename
             ]);
 
 
@@ -74,13 +75,24 @@ class userController extends Controller
         return redirect()->back();
     }
     public function predict($id){
+        $findApllication = Application::where('user_id',$id)->first();
         $averageOlevelScore = Olevel::where('user_id',$id)->avg('maths','eng','chem','phys','bio','othwerScore1','othwerScore2','othwerScore3');
-        $sumPostUtme = PostUtme::where('user_id',$id)->sum( 'sub1score','sub2score', 'sub3score', 'sub4score' );
-        $dept = PostUtme::where('user_id',$id)->first();
+        $sumPostUtme = PostUtme::where('user_id',$id)->first();
+        $sumPostUtme = $sumPostUtme->sub1score+ $sumPostUtme->sub2score+ $sumPostUtme->sub3score+ $sumPostUtme->sub4score;
+       if(!$findApllication){
+
+        Application::create([
+                'user_id' => $id,
+                'cuttOff' => $sumPostUtme,
+                'status' =>'pending',
+                'year' => date('Y')
+            ]);
+        }  $dept = PostUtme::where('user_id',$id)->first();
         if($averageOlevelScore && $sumPostUtme){
         $OlevelCuttOff = Department::find($dept->dept_id);
         $departmentCuttOff = cuttOff::where('dept_id',$dept->dept_id)->first();
-        if($sumPostUtme >= $departmentCuttOff->cuttOff && $averageOlevelScore >= $OlevelCuttOff->O_level_avg ){
+        // dd($departmentCuttOff);
+        if($sumPostUtme >= $departmentCuttOff->cutOff && $averageOlevelScore >= $OlevelCuttOff->O_level_avg ){
             return view('admin.application.admitted',[
                 'message' => 'Excellent performance high chance of admission in '.$OlevelCuttOff->name.', reached cutt-off for post-UTME and Olevel',
                 'status' => true,
@@ -88,30 +100,12 @@ class userController extends Controller
                 'olevelAverage' => $OlevelCuttOff,
                 'yourPostUtme' => $sumPostUtme,
                 'cuttOff' => $departmentCuttOff->cutOff,
-
+                'admited' => $findApllication
             ]);
         }
 
-        if( $sumPostUtme >= $departmentCuttOff ){
-            return view('admin.application.admitted',[
-                'message' => 'Good performance for '.$OlevelCuttOff->name.', reached cutt-off for post-UTME, your Olevel will be reviewed by admin',
-                'status' => true,
-                'yourOlevel' => $averageOlevelScore,
-                'olevelAverage' => $OlevelCuttOff,
-                'yourPostUtme' => $sumPostUtme,
-                'cuttOff' => $departmentCuttOff->cutOff,
-            ]);
-        }else{
-            return view('admin.application.admitted',[
-                'message' => 'performanced poorly for '.$OlevelCuttOff->name.' low chance of admission, We strongly advise you enroll for pre degree. You did not reach cutt-off for post-UTME',
-                'status' => false,
-                'yourOlevel' => $averageOlevelScore,
-                'olevelAverage' => $OlevelCuttOff,
-                'yourPostUtme' => $sumPostUtme,
-                'cuttOff' => $departmentCuttOff->cutOff,
-            ]);
-        }
-        if( $sumPostUtme < $departmentCuttOff && $averageOlevelScore < $OlevelCuttOff){
+
+        if( $sumPostUtme < $departmentCuttOff->cutOff && $averageOlevelScore < $OlevelCuttOff->O_level_avg ){
             return view('admin.application.admitted',[
                 'message' => 'Poor performance for '.$OlevelCuttOff->name.' No chance of admission, You did not reach cutt-off for post-UTME, and Olevel',
                 'status' => false,
@@ -119,8 +113,34 @@ class userController extends Controller
                 'olevelAverage' => $OlevelCuttOff,
                 'yourPostUtme' => $sumPostUtme,
                 'cuttOff' => $departmentCuttOff->cutOff,
+                'admited' => $findApllication
             ]);
         }
+
+
+        if( $sumPostUtme >= $departmentCuttOff->cutOff ){
+            return view('admin.application.admitted',[
+                'message' => 'Good performance for '.$OlevelCuttOff->name.', reached cutt-off for post-UTME, your Olevel will be reviewed by admin',
+                'status' => true,
+                'yourOlevel' => $averageOlevelScore,
+                'olevelAverage' => $OlevelCuttOff,
+                'yourPostUtme' => $sumPostUtme,
+                'cuttOff' => $departmentCuttOff->cutOff,
+                'admited' => $findApllication
+            ]);
+        }else if($averageOlevelScore >= $OlevelCuttOff->O_level_avg ){
+            return view('admin.application.admitted',[
+                'message' => 'performaned poorly for '.$OlevelCuttOff->name.'Department, low chance of admission, We strongly advise you enroll for pre degree. You did not reach cutt-off for post-UTME, however you smashed the O"level',
+                'status' => 'warning',
+                'yourOlevel' => $averageOlevelScore,
+                'olevelAverage' => $OlevelCuttOff,
+                'yourPostUtme' => $sumPostUtme,
+                'cuttOff' => $departmentCuttOff->cutOff,
+                'admited' => $findApllication
+            ]);
+        }
+
+
     }else{
         $error = 'Please fill and submit Olevel and PostUtme to proceed to predictions';
         return view('admin.application.application',compact('error'));
@@ -129,4 +149,38 @@ class userController extends Controller
 
         // dd($departmentCuttOff);
         }
+    public function viewUser($id){
+        $applicant = User::findOrFail($id);
+        $olevels = Olevel::where('user_id',$id)->get();
+        $postutmes = PostUtme::where('user_id',$id)->first();
+        // dd($olevels);
+        return view('admin.user.viewUsers',compact('applicant','olevels','postutmes'));
+    }
+    public function deleteApplication($id){
+        Application::find($id)->delete();
+        return redirect()->back();
+    }
+    public function deleteUser($id){
+        User::find($id)->delete();
+        return redirect()->back();
+    }
+    public function destory(Request $request){
+      Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
+    public function updateApplication(Request $request, $id){
+        $app = Application::find($id);
+        $app->status = $request->admit;
+        $app->save();
+        return redirect()->back();
+    }
+    public function searchPredict(Request $request){
+
+        return 'working';
+    }
 }

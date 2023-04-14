@@ -61,4 +61,5 @@ class DeptController extends Controller
         $department->save();
          return redirect()->route('departments');
     }
+    
 }

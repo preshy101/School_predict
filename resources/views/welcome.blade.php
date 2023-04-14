@@ -50,6 +50,7 @@
   <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <meta name='csrf-token' content="{{csrf_token() }}"/>
   <!-- Bootstrap , fonts & icons  -->
   <link rel="stylesheet" href="{{asset('./frontend/css/bootstrap.css')}}">
   <link rel="stylesheet" href="{{asset('./frontend/fonts/icon-font/css/style.css')}}">
@@ -104,10 +105,10 @@
               <ul class="site-menu-main">
 
                 <li class="nav-item">
-                  <a href="#" class="nav-link-item">Courses</a>
+                  <a href="#" class="nav-link-item">Features</a>
                 </li>
                 <li class="nav-item">
-                  <a href="https://uxtheme.net/product-support/" class="nav-link-item">Support</a>
+                  <a href="#predict" class="nav-link-item">predict</a>
                 </li>
               </ul>
             </nav>
@@ -276,7 +277,7 @@
       </div>
     </div>
     <!-- Pricing-area section -->
-    <div class="pricing-area-l14 position-relative overflow-hidden z-index-1">
+    <div id="predict" class="pricing-area-l14 position-relative overflow-hidden z-index-1">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-xl-6 col-lg-7 col-md-10 text-center" data-aos="fade-down" data-aos-duration="800" data-aos-once="true">
@@ -286,6 +287,29 @@
               <p>Create custom landing
                 pages with Shades that convert more visitors than any website—no coding required.</p>
             </div>
+ @if(count($errors))
+                  @foreach ($errors->all() as $error)
+                  <p class="alert alert-danger alert-dismissible fade show">
+                    {{$error}}
+                  </p>
+                  @endforeach
+                  @endif
+                @php
+                    $depts = App\Models\Department::all();
+                @endphp
+                <label for="">Department</label>
+                <select class="form-control" name="dept" id="dept">
+                    @foreach ($depts as $dept)
+                    <option value="{{$dept->id}}">{{$dept->name}}</option>
+                    @endforeach
+                </select>
+                <label for="">Score</label>
+                <input class="form-control" id="score" placeholder="Enter post-UTME score" type="text"><br>
+                <button type="button" id="predictBtn"   class="btn btn-primary"> Predict
+                </button>
+                <div id="result">
+
+                </div>
           </div>
         </div>
 
@@ -372,6 +396,45 @@
   <script src="{{asset('frontend/plugins/menu/menu.js')}}"></script>
   <!-- Activation Script -->
   <script>
+    // function predict(){
+    //     alert('hello');
+    // }
+     $('body').on('click','#predictBtn', function(){
+        let dept = $('#dept').val();
+        let score = $('#score').val();
+        const site_url = "http://127.0.0.1:8000/";
+        let viewData = $("#result");
+        var data;
+        //   if(text.length > 1){
+        $.ajax({
+            data: { dept: dept, _token: "{{ csrf_token() }}", score:score },
+            url: site_url + "search/predict",
+            method: "post",
+            beforeSend: function (request) {
+                return request.setRequestHeader(
+                    "XSRF-TOKEN",
+                    "meta[name='csrf-token']"
+                );
+            },
+            success: function (result) {
+                console.log(result['message']);
+                $("#result").html('');
+                if(result['status']){
+
+                data =`<p class="alert alert-success alert-dismissible fade show">
+                    ${result['message']}
+                  </p>`
+                }else{
+
+                data =`<p class="alert alert-danger alert-dismissible fade show">
+                    ${result['message']}
+                  </p>`
+                }
+                viewData.append(data);
+            }
+        });
+    //  }
+    })
         $(window).load(function() {
         setTimeout(function() {
             $("#loading").fadeOut(500);
@@ -380,6 +443,8 @@
             $("#loading").remove();
         }, 2000);
     });
+
+
   </script>
   <script src="{{asset('frontend/js/custom.js')}}"></script>
 </body>

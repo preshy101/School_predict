@@ -5,7 +5,7 @@
   <div class="container-xxl flex-grow-1 container-p-y">
 {{--
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> --}}
-              <h4 class="fw-bold    "><span class="text-muted fw-light">Admitted /</span> view</h4>
+              <h4 class="fw-bold    "><span class="text-muted fw-light">Prediction /</span> view</h4>
 
     <div class="row">
                 <div class="col-md-12">
@@ -32,7 +32,7 @@
                     <div class="card-body">
 
 
-            @if(!empty($message ) && $status)
+            @if(!empty($message ) && $status === true)
                   <p class="alert alert-success alert-dismissible fade show">
                     {{$message}}
                   </p>
@@ -46,7 +46,7 @@
                             <td><b>Department O'Level Average Cutt-Off:</b> {{$olevelAverage->O_level_avg }}</td>
                         </tr>
                         <tr>
-                            <td><b>Demartment</b> {{$$olevelAverage->name }}</td>
+                            <td><b>Demartment</b> {{$olevelAverage->name }}</td>
                         </tr>
                         <tr>
                             <td><b>Your Post-UTME Total:</b> {{$yourPostUtme}}</td>
@@ -54,10 +54,13 @@
                         <tr>
                             <td><b>Department Cutt-Off:</b> {{$cuttOff}}</td>
                         </tr>
+                        <tr>
+                            <td><b>Status:</b> {{($admited->status == 'approved')?' Admitted ':' Not Admitted '}}</td>
+                        </tr>
                     </tbody>
                   </table>
                   @endif
-            @if(!empty($message ) && $status == false)
+            @if(!empty($message ) && $status === false)
                   <p class="alert alert-danger alert-dismissible fade show">
                     {{$message}}
                   </p>
@@ -71,7 +74,7 @@
                             <td><b>Department O'Level Average Cutt-Off:</b> {{$olevelAverage->O_level_avg }}</td>
                         </tr>
                         <tr>
-                            <td><b>Demartment</b> {{ $olevelAverage->name }}</td>
+                            <td><b>Demartment:</b> {{ $olevelAverage->name }}</td>
                         </tr>
                         <tr>
                             <td><b>Your Post-UTME Total:</b> {{$yourPostUtme}}</td>
@@ -79,12 +82,40 @@
                         <tr>
                             <td><b>Department Cutt-Off:</b> {{$cuttOff}}</td>
                         </tr>
+                         <tr>
+                            <td><b>Status:</b> {{($admited->status == 'approved')?' Admitted ':' Not Admitted '}}</td>
+                        </tr>
                     </tbody>
                   </table>
                   @endif
-
-
-
+            @if(!empty($message ) && $status === 'warning')
+                  <p class="alert alert-warning alert-dismissible fade show">
+                    {{$message}}
+                  </p>
+                  <br><br><br>
+                  <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Your O'Level Average:</b> {{$yourOlevel}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Department O'Level Average Cutt-Off:</b> {{$olevelAverage->O_level_avg }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Demartment:</b> {{ $olevelAverage->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Your Post-UTME Total:</b> {{$yourPostUtme}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Department Cutt-Off:</b> {{$cuttOff}}</td>
+                        </tr>
+                         <tr>
+                            <td><b>Status:</b> {{($admited->status == 'approved')?' Admitted ':' Not Admitted '}}</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                  @endif
       </div>
       </div>
       </div>
