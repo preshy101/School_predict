@@ -16,9 +16,9 @@
                   </p>
                   @endforeach
                   @endif
-                  @if(!empty($message))
+                 @if(Session::has('message'))
                   <p class="alert alert-success alert-dismissible fade show">
-                    {{$message}}
+                   {{Session::get('message')}}
                   </p>
                   @endif
                   @if(!empty($error))
@@ -61,7 +61,7 @@
                             <input autofocus required class="form-control border border-primary" type="text" name="physics" id="selectState"/>
 
                         </div>
-                         <b class="col-md-1 col-form-label">A</b>
+                         <b class="col-md-1 col-form-label"> </b>
                         </div>
                         <div class="mb-3 row">
                         <label for="html5-text-input" class="col-md-6 col-form-label">Chemistry</label>
@@ -77,7 +77,7 @@
                             <input autofocus required class="form-control border border-primary" type="text" name="bio" id="selectState"/>
 
                         </div>
-                         <b class="col-md-1 col-form-label">A</b>
+                         <b class="col-md-1 col-form-label"> </b>
                         </div>
                         <div class="mb-3 row">
                              <div class="col-md-6">
@@ -87,7 +87,7 @@
                         <input autofocus required class="form-control" type="text" name="other1score" id="selectState"/>
 
                         </div>
-                         <b class="col-md-1 col-form-label">A</b>
+                         <b class="col-md-1 col-form-label"> </b>
                         </div>
                         <div class="mb-3 row">
                              <div class="col-md-6">
@@ -97,7 +97,7 @@
                             <input autofocus required class="form-control" type="text" name="other2score" id="selectState"/>
 
                         </div>
-                         <b class="col-md-1 col-form-label">A</b>
+                         <b class="col-md-1 col-form-label"> </b>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-md-6">
@@ -108,7 +108,7 @@
                             <input autofocus required class="form-control" type="text" name="other3score" id="selectState"/>
 
                         </div>
-                         <b class="col-md-1 col-form-label">A</b>
+                         <b class="col-md-1 col-form-label"> </b>
                         </div>
                                     </div>
                                     <div class="col-6">

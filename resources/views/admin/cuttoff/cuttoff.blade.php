@@ -27,9 +27,9 @@
                   </p>
                   @endforeach
                   @endif
-                  @if(!empty($message))
+                @if(Session::has('message'))
                   <p class="alert alert-success alert-dismissible fade show">
-                    {{$message}}
+                   {{Session::get('message')}}
                   </p>
                   @endif
                   @if(!empty($error))

@@ -79,8 +79,10 @@
 
             <!-- Layouts -->
 
-
-
+            @php
+             $user = auth()->user()->role;
+            @endphp
+                @if($user == 'admin')
              <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
                 <i class="menu-icon tf-icons bx bx-trip text-white"></i>
@@ -149,6 +151,11 @@
                     <div data-i18n="Boxicons" class="text-white">User</div>
                 </a>
             </li>
+            @endif
+            @php
+             $user = auth()->user()->role;
+            @endphp
+            @if($user == 'user')
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
             <!-- Cards -->
@@ -178,7 +185,7 @@
                     <div data-i18n="Boxicons" class="text-white">Predict</div>
                 </a>
             </li>
-
+            @endif
 
           </ul>
         </aside>

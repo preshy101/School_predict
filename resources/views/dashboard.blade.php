@@ -30,6 +30,10 @@
                     </div>
                   </div>
                 </div>
+                @php
+             $user = auth()->user()->role;
+            @endphp
+            @if($user == 'admin')
                 <div class="col-lg-4 col-md-4 order-1">
                   <div class="row">
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
@@ -45,6 +49,12 @@
                           <span class="fw-semibold d-block mb-1">Users</span>
                           <h3 class="card-title mb-2">
                             {{-- {{count($users)}} --}}
+                            @php
+                            $users = App\Models\User::all();
+                            $users = count($users);
+
+                            @endphp
+                            {{ $users}}
                         </h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
                         </div>
@@ -62,6 +72,12 @@
                           <span class="fw-semibold d-block mb-1">School</span>
                           <h3 class="card-title text-nowrap mb-1">
                             {{-- {{count($driver)}} --}}
+                            @php
+                            $schoolcount = App\Models\School::all();
+                            $schoolcount = count($schoolcount);
+
+                            @endphp
+                            {{ $schoolcount}}
                         </h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
                         </div>
@@ -83,7 +99,12 @@
                           </div>
                           <span class="d-block mb-1">Departments</span>
                           <h3 class="card-title text-nowrap mb-2">
-                            {{-- {{count($order)}} --}}
+                             @php
+                            $dept = App\Models\Department::all();
+                            $dept = count($dept);
+
+                            @endphp
+                            {{ $dept}}
                         </h3>
                           <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
                         </div>
@@ -100,6 +121,12 @@
                           <span class="fw-semibold d-block mb-1">Admitted</span>
                           <h3 class="card-title mb-2">
                             {{-- {{count($orderComplete)}} --}}
+                            @php
+                            $dept = App\Models\User::where('admitted',1)->get();
+                            $dept = count($dept);
+
+                            @endphp
+                            {{ $dept}}
                         </h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
                         </div>
@@ -107,7 +134,7 @@
                     </div>
                     <!-- </div>
     <div class="row"> -->
-
+@endif
                   </div>
                 </div>
               </div>

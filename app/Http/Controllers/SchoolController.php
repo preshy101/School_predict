@@ -30,11 +30,14 @@ class SchoolController extends Controller
         School::create([
             'name' => $request->name,
         ]);
+
+    session()->flash('message','school created  Successfully');
         return redirect()->route('school');
     }
 
     public function deleteSchool($id){
         School::findOrFail($id)->delete();
+        session()->flash('message','school deleted Successfully');
         return redirect()->route('school');
     }
     public function editSchool($id){
@@ -48,6 +51,7 @@ class SchoolController extends Controller
         $school->name =  $request->name;
         $school->save();
         $message = 'school update successfully';
+    session()->flash('message','school updated  Successfully');
         return redirect()->route('school')->with($message);
     }
     public function Application(){

@@ -177,6 +177,12 @@ class userController extends Controller
         $app = Application::find($id);
         $app->status = $request->admit;
         $app->save();
+        $userAdmitted = User::where('id',$app->user_id)->first();
+        $userAdmittedUpdate = User::find($userAdmitted->id);
+        $userAdmittedUpdate->admitted = ($request->);
+        $userAdmittedUpdate->save();
+
+    session()->flash('message','Application updated  Successfully');
         return redirect()->back();
     }
     public function searchPredict(Request $request){

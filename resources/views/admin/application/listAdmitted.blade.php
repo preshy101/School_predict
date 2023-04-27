@@ -24,7 +24,11 @@
                   </p>
                   @endif
 
-
+@if(Session::has('message'))
+                  <p class="alert alert-success alert-dismissible fade show">
+                   {{Session::get('message')}}
+                  </p>
+                  @endif
 
                     <div class="card  ">
                     <h5 class="card-header">Student Review</h5>
@@ -73,7 +77,8 @@
                             <td>
                                <form action="{{route('update.application',$applicatio->id)}}" method="post">
                                 @csrf
-                                <select class="form-control" name="admit" id="">
+                                <select required class="form-control" name="admit" id="">
+                                    <option value="">select one</option>
                                     <option value="approved">approve</option>
                                     <option value="pending">pendind</option>
                                 </select>

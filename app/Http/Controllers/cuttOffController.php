@@ -21,11 +21,14 @@ class cuttOffController extends Controller
             'cutOff' => $request->name,
             'dept_id' => $request->department
         ]);
+        session()->flash('message','Cutt-Off created  Successfully');
         return redirect()->route('cutt');
     }
 
     public function deleteCutt($id){
         cuttOff::findOrFail($id)->delete();
+
+        session()->flash('message','Cutt-Off deleted  Successfully');
         return redirect()->route('cutt');
     }
     public function editCutt($id){
@@ -44,6 +47,7 @@ class cuttOffController extends Controller
         $cutts->dept_id = $request->department;
         $cutts->save();
 
+        session()->flash('message','Cutt-Off updated Successfully');
        return redirect()->route('cutt');
     }
 }

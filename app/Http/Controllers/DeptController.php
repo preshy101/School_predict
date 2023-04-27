@@ -34,11 +34,13 @@ class DeptController extends Controller
             'info' => $request->info,
 
         ]);
+        session()->flash('message','Department created  Successfully');
         return redirect()->route('departments');
     }
 
     public function deleteDepartment($id){
         Department::findOrFail($id)->delete();
+        session()->flash('message','Department deleted  Successfully');
             return redirect()->route('departments');
     }
     public function editDepartment($id){
@@ -59,7 +61,9 @@ class DeptController extends Controller
         $department->info = $request->info;
 
         $department->save();
+
+    session()->flash('message','Department updated  Successfully');
          return redirect()->route('departments');
     }
-    
+
 }
